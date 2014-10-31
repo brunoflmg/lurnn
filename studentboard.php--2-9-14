@@ -1,0 +1,208 @@
+<?php
+    require_once "config.php";
+    checkStudentLogin();
+    $sid    = $_SESSION['sid'];
+	$filter = "student";
+    $student_email = $_SESSION['email'];
+    //d($_GET,1);
+
+    $filter = "class";
+    if(isset($_GET['filter']) && trim($_GET['filter'])!=""){
+        $filter = mysql_real_escape_string($_GET['filter']);
+        if(! in_array($filter,array("class","quiz","skill"))){
+            $filter = "student";
+        }
+    }
+    
+    $duration = "year";
+    if(isset($_GET['duration']) && trim($_GET['duration'])!=""){
+        $duration = mysql_real_escape_string($_GET['duration']);
+        if(! in_array($duration,array("week","month", "quarter", "semester", "year"))){
+            $duration = "year";
+        }
+    }
+
+    $year = date("Y");
+    
+
+    include "studentboard.graph.php";
+    
+    
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>lurnn</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <!-- bootstrap -->
+    <link href="css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/elements.css">
+    <link rel="stylesheet" type="text/css" href="css/icons.css">
+
+    <!-- this page specific styles -->
+    <link rel="stylesheet" href="css/compiled/index.css" type="text/css" media="screen" />    
+
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- lato font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="./img/favicon.jpg"/>
+    
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart","table"]});
+      <?php if(substr_count($graph_data,"]")>2){ ?>
+      google.setOnLoadCallback(drawChart);
+      google.setOnLoadCallback(drawTable);
+      <?php }else{
+        ?>
+         $("#statsChart").html('<div class="clearfix alert alert-danger span6 offset3"><button data-dismiss="alert" class="close" type="button">×</button><strong>No data Founds</strong></div>');
+        <?php
+      } ?>
+      function drawChart() {
+        var data      = google.visualization.arrayToDataTable(<?php echo $graph_data;?>);
+        var formatter = new google.visualization.NumberFormat({
+            fractionDigits: 2,
+            suffix: '%'
+        });
+        formatter.format(data, 1);
+        var options = {
+          title: '<?php echo $data_title;?>',
+          hAxis: {title: '<?php echo $hAxis_title;?>'},
+          vAxis: {title: '<?php echo $vAxis_title;?>',minValue:0,maxValue:100,format: '#\'%\''},
+
+        };
+
+        var chart = new google.visualization.<?php echo $graph_type;?>(document.getElementById('statsChart'));
+        chart.draw(data, options);
+      }
+      function drawTable(){
+        var data = google.visualization.arrayToDataTable(<?php echo $table_data;?>);
+
+        var options = {
+          title: '<?php echo $data_title;?>',
+          hAxis: {title: '<?php echo $hAxis_title;?>'},
+          vAxis: {title: '<?php echo $vAxis_title;?>'},
+        };
+
+        var chart = new google.visualization.Table(document.getElementById('tablechart'));
+        chart.draw(data,  {title: 'Academic Progress',showRowNumber: true});
+      }
+    </script>
+
+</head>
+<body>
+
+   
+
+   
+    <?php include "includes/student_menu.php"; ?>
+    <?php include "includes/student_left_side_bar.php"; ?>
+
+
+
+  <!-- main container -->
+    <div class="content">
+
+        
+        <div class="container-fluid">
+
+            <!-- upper main stats -->
+            <?php include "stats.php";?>
+            <!-- end upper main stats -->
+
+            <div id="pad-wrapper">
+
+                <!-- statistics chart built with jQuery Flot -->
+                <div class="row-fluid chart">
+                    <div class="span6 offset3 text-right">                        
+                        <div class="ui-select">
+                          <select id="duration" onchange="window.location='studentboard.php?filter='+$('#filter').val()+'&duration='+$('#duration').val();">
+                            <option value="week"  <?php if($duration=='week') echo "selected='selected'";?>>Week</option>
+                            <option value="month" <?php if($duration=='month') echo "selected='selected'";?>>Month</option>
+                            <option value="quarter"  <?php if($duration=='quarter') echo "selected='selected'";?>>Quarter</option>
+                            <option value="semester"  <?php if($duration=='semester') echo "selected='selected'";?>>Semester</option>
+                            <option value="year"  <?php if($duration=='year') echo "selected='selected'";?>>Year</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="ui-select">
+                          <select id="filter" onchange="window.location='studentboard.php?filter='+$('#filter').val()+'&duration='+$('#duration').val();">
+                            <option value="class"  <?php if($filter=='class') echo "selected='selected'";?>>By Class</option>
+                            <option value="quiz"  <?php if($filter=='quiz') echo "selected='selected'";?>>By Quiz</option>
+                            <option value="skill"  <?php if($filter=='skill') echo "selected='selected'";?>>By Skill</option>
+                          </select>
+                        </div>
+                    </div>
+                   
+                    <div id="statsChart" class="span12" style="height:700px;text-align:center;margin-top:0;">
+                    </div>
+                    <div class="span12 table-products section" style="margin-top:0;padding-top:0;" id="tablechart">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!-- scripts -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery-ui-1.10.2.custom.min.js"></script>
+    <!-- knob -->
+    <script src="js/jquery.knob.js"></script>
+    <!-- flot charts -->
+
+    <script src="js/theme.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            // jQuery Knobs
+            $(".knob").knob();
+			$("#myModal_pOp").show();
+			$('.modal-backdrop').show();
+        });
+		function HideMe()
+		{
+			$("#myModal_pOp").hide();
+			$('.modal-backdrop').hide();
+		}
+    </script>
+	
+	<div id="myModal_pOp" style="display:none">
+		<form enctype="multipart/form-data" method="post" id="fileupload">
+			<div class="modal-header">
+				<span id="CrossME" onclick="return HideMe();" >×</span>
+				<h3 id="myModalLabel">Welcome to Lurnn.com</h3>
+				<p id="para">TIME TO GET YOU ENROLLED!</p>
+				<div class="row-fluid">
+                    <p class="span2 offset9">
+					<a class="btn btn-primary" href="student-offer-classes.php" style="float: right; width: 195px;">
+					CONTINUE TO ENROLLMENT
+					</a>
+					</p>
+                </div>
+			</div>
+		</form>
+	</div>
+	<div class="modal-backdrop fade in" style="display:none;"></div>
+	
+</body>
+</html>

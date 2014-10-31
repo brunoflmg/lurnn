@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>lurnn</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content=""><!-- Le styles -->
+<link href="http://lurnn.com/assets/css/bootstrap.css" rel="stylesheet">
+<link href="http://lurnn.com/assets/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="http://lurnn.com/assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="http://lurnn.com/assets/css/font-awesome.min.css">
+<!--[if IE 7]>
+<link rel="stylesheet" href="http://lurnn.com/assets/css/font-awesome-ie7.min.css">
+<![endif]-->
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+      <script src="http://lurnn.com/assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+<!-- Fav and touch icons -->
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lurnn.com/assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lurnn.com/assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lurnn.com/assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed" href="http://lurnn.com/assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="shortcut icon" href="http://lurnn.com/assets/ico/favicon.png">
+<script src="http://lurnn.com/assets/js/jquery.js"></script>
+<script src="http://lurnn.com/assets/js/bootstrap.min.js"></script>
+<script src="http://lurnn.com/assets/js/jqBootstrapValidation-1.3.6.min.js"></script><link href="http://lurnn.com/assets/bootstrap-editable/css/bootstrap-editable.css" rel="stylesheet">
+<script src="http://lurnn.com/assets/bootstrap-editable/js/bootstrap-editable.js"></script>
+<script src="http://lurnn.com/assets/js/jquery.form.js"></script>
+<script>
+  $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+  $.fn.editable.defaults.mode = 'popover';
+</script>
+</head>
+
+<body>
+<!-- NAVBAR
+    ================================================== -->
+<div class="container">
+  <div class="row">
+    <!-- Wrap the .navbar in .container to center it within the absolutely positioned parent. -->
+
+<div class="navbar navbar-inverse" style="margin-top:20px;">
+  <div class="navbar-inner"> 
+    <!-- Responsive Navbar Part 1: Button for triggering responsive navbar (not covered in tutorial). Include responsive CSS to utilize. -->
+    <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+    <a class="brand" href="#">lurnn</a> 
+    <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
+    <div class="nav-collapse collapse">
+      <ul class="nav">
+		<li class="active"><a href="/dashboard.php">Dashboard</a></li>
+        <li><a href="#about">Classes</a></li>
+        <li><a href="/me.html">Profile</a></li>
+        <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+        <li class="dropdown"> <a href="#" class="dropdown-toggle" data-toggle="dropdown">Start learning! <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Create a class.</a></li>
+            <li><a href="#">Join a class.</a></li>
+            <li class="divider"></li>
+            <li class="nav-header">Help</li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Suggestion & Question Box</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <form id="search_form" class="form-inline well-small" action="http://lurnn.com/me/search.html" method="post" style="margin-bottom:0;">
+      <div class="input-prepend input-append">
+        <div class="btn-group">
+          <button class="btn">Category</button>
+          <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a href="#" onclick="if($('#search_category_class').attr('checked')==true){$('#search_category_class').removeAttr('checked'); $('#search_category_class_icon').removeAttr('class'); }else{$('#search_category_class').attr('checked','checked');$('#search_category_class_icon').attr('class','icon-ok');}"><i class="icon-ok" id="search_category_class_icon"></i> Classes</a>
+              <input type="checkbox" class="hide" checked="checked" id="search_category_class" name="search_category[]" value="class">
+            </li>
+            <li><a href="#" onclick="if($('#search_category_classmate').attr('checked')==true){$('#search_category_classmate').removeAttr('checked'); $('#search_category_classmate_icon').removeAttr('class'); }else{$('#search_category_classmate').attr('checked','checked');$('#search_category_classmate_icon').attr('class','icon-ok');}"><i class="icon-ok" id="search_category_classmate_icon"></i> Classmates</a>
+              <input type="checkbox" name="search_category[]" class="hide" checked="checked" id="search_category_classmate" value="classmate">
+            </li>
+            <li><a href="#" onclick="if($('#search_category_friend').attr('checked')==true){$('#search_category_friend').removeAttr('checked'); $('#search_category_friend_icon').removeAttr('class'); }else{$('#search_category_friend').attr('checked','checked');$('#search_category_friend_icon').attr('class','icon-ok');}"><i class="icon-ok" id="search_category_friend_icon"></i> Friends</a>
+              <input type="checkbox" name="search_category[]" class="hide" checked="checked" id="search_category_friend" value="friend">
+            </li>
+          </ul>
+        </div>
+        <input class="span2" id="appendedPrependedDropdownButton" required="required" name="query" type="text">
+        <button class="btn" type="submit">Search</button>
+      </div>
+      <div class="btn-group"> <a href="#" class="btn btn-primary"><i class="icon-user icon-white"></i>
+        Welcome
+        </a> <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="http://lurnn.com/logout.html"> <i class="icon-off"></i> Logout</a></li>
+        </ul>
+      </div>
+    </form>
+    <!--/.nav-collapse --> 
+  </div>
+  <!-- /.navbar-inner --> 
+</div>
+<!-- /.navbar --> 
+  </div>
+  <div class="row">
+    <div class="span7">
+      <div class="row well">
+                <div class="media well">
+          <form id="change_profile_picture" method="post" style="margin:0;">
+          <div class="fileupload fileupload-new pull-left" data-provides="fileupload">
+            <div class="fileupload-new thumbnail" style="width: 120px; height: 90px;"><img id="thumbnail_profile_picture" style="width: 120px; height: 90px; border-radius:5px;" src="https://graph.facebook.com/619011251/picture" /></div>
+            <div class="fileupload-preview fileupload-exists thumbnail" style="width: 120px; height: 90px; line-height: 20px;"></div>
+            <div> <span class="btn btn-file"><span class="fileupload-new"><i class="icon-pencil"></i> Change Image </span><span class="fileupload-exists"><i class="icon-pencil"></i> Change Image</span>
+
+                 <input type="file" id="profile_picture" name="userfile"/>
+              
+              </span><!--<a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a> --></div>
+          </div>
+          </form>
+          
+          <div class="media-body">
+            <h4 class="media-heading"><a href="#" id="name">
+              Matthieu Tessier              </a></h4>
+            <h4 class="media-heading"><a href="#" id="work" class="muted">
+              Founder, Chief Software Architect, lurnn.com              </a></h4>
+            <h5 class="media-heading muted">Lives in <a href="#" id="location" class="muted">
+               New York, New York              </a></h5>
+          </div>
+        </div>
+        <table class="table table-striped well">
+          <tbody>
+            <tr>
+              <td>University</td>
+              <td><a href="#" id="university">
+                                </a></td>
+            </tr>
+            <tr>
+              <td>Past</td>
+              <td><p><a href="#" id="college">
+                  University of Central Florida                  </a></p>
+                <p><a href="#" id="school">
+                  Spanish River Community High School                  </a></p></td>
+            </tr>
+            <tr>
+              <td>Major</td>
+              <td><a href="#" id="major">
+                Computer Science                </a></td>
+            </tr>
+            <tr>
+              <td>Graduation Date</td>
+              <td><a href="#" id="graduate_date">
+                December 05, 2013                </a></td>
+            </tr>
+            <tr>
+              <td>Where I post</td>
+              <td> Facebook, Twitter, Linkedin </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row well">
+        <textarea rows="3" style="width:97%"></textarea>
+        <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+          <div class="media-body">
+            <h4 class="media-heading">Media heading</h4>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                <input type="text" class="large-input" id="comment_id_1"/>
+                </div>
+            </div>
+            
+          </div>
+        </div>
+        <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+          <div class="media-body">
+            <h4 class="media-heading">Media heading</h4>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+          </div>
+        </div>
+        <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+          <div class="media-body">
+            <h4 class="media-heading">Media heading</h4>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+            <div class="media"> <a href="#" class="pull-left"> <img data-src="holder.js/64x64" class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABUUlEQVR4nO2UMW7DMAxFc/+jcObqUbsOwDPwCurEQFXsoojgPBT9wxsSO8TTk6JHZo7/zIMWoFEAWoBGAWgBGgWgBWgUgBagUQBagEYBaAEaBaAFaBSAFqBRAFqARgFoARoFoAVoFIAWoNkO0FobZjbMbBzHcfqOmQ13R2feEqBEM3P03oeZjd776Tu/lb1j5m0B3P1yhzJzRMRzJ2dZd39ZZGttayYSoI5oCdUi1kDu/k22FlG/nZ+9OxMLcHVc63NEnMrOi5yP+M5M7ASsu1rP5mO9ytb76/c7Mz8eYP2/lmzt1MrZPbAe852ZHw9Qt3FEXN7YZ7tVv+u9P0NExNZMJEBm/nhhXcnOO7ce83dnYgH+OgpAC9AoAC1AowC0AI0C0AI0CkAL0CgALUCjALQAjQLQAjQKQAvQKAAtQKMAtACNAtACNApAC9AoAC1A8wVF0yPpFTYpPwAAAABJRU5ErkJggg=="> </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus. </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="span5">
+      <!--<div class="row well">
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+          <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;"></div>
+          <div> <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>
+            <input type="file" />
+            </span> <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a> </div>
+        </div>
+        <h4>Relationship Status: <a href="#" id="relationship_status">
+                    </a></h4>
+        <h5>
+                    's Profile</h5>
+      </div>-->
+      <!--<div class="row well">
+        <div class="hero-unit">
+          <h3>About me</h3>
+          <p><a href="#" id="bio">
+                        </a></p>
+          <p><a class="btn btn-primary">Find out more</a></p>
+        </div>
+      </div>-->
+      <div class="row well">
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Upcoming Assignments</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody data-provides="rowlink">
+            <tr class="rowlink">
+              <td>A streamlined, but flexible, take on the traditional javascript modal plugin with only the minimum required functionality and smart defaults.</td>
+              <td class="nolink"><a href="#">Action</a></td>
+            </tr>
+            <tr class="rowlink">
+              <td>Add dropdown menus to nearly anything in Bootstrap with this simple plugin. Bootstrap features full dropdown menu support on in the navbar, tabs, and pills.</td>
+              <td class="nolink"><a href="#">Action</a></td>
+            </tr>
+            <tr class="rowlink">
+              <td>Use scrollspy to automatically update the links in your navbar to show the current active link based on scroll position.</td>
+              <td class="nolink"><a href="#">Action</a></td>
+            </tr>
+            <tr class="rowlink">
+              <td>Use this plugin to make tabs and pills more useful by allowing them to toggle through tabbable panes of local content.</td>
+              <td class="nolink"><a href="#">Action</a></td>
+            </tr>
+            <tr class="rowlink">
+              <td>A new take on the jQuery Tipsy plugin, Tooltips don't rely on images, uss CSS3 for animations, and data-attributes for local title storage.</td>
+              <td class="nolink"><a href="#">Action</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row well">
+        <ul class="thumbnails" style="margin-left:0px;">
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+          <li>
+            <div class="thumbnail"> <img src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-snc6/s200x200/228418_2049073313126_6877364_n.jpg" style="width:60px;;;height:60px;" alt=""> </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row well">
+    <footer>
+  <p class="pull-right"><a href="#">Back to top</a></p>
+  <p align="center">&copy; lurnn &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+</footer>
+</div>  </div>
+</div>
+<script type="text/javascript">
+   $('#name').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+	emptyclass: 'editable-empty',
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Name'
+   });
+   $('#work').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Job'
+   });
+   $('#location').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Curent Location'
+   });
+   $('#school').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your School Name'
+   });
+   $('#university').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your University Name'
+   });
+   $('#college').editable({
+    type: 'text',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your College Name'
+   });
+
+   $('#major').editable({
+    type: 'text',
+    pk: 1,
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Major Subject Name'
+   });
+   $('#graduate_date').editable({
+    type: 'date',
+	format: 'MM dd, yyyy',
+    viewformat: 'MM dd, yyyy', 
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Graduation Date'
+   });
+   $('#relationship_status').editable({
+    type: 'select',
+    pk: 1,
+	value: "",
+	source: [
+		{value: "Married", text: "Married"},
+		{value: "Single", text: "Single"},
+		{value: "In a Relationship", text: "In a Relationship"},
+		{value: "It's Complicated", text: "It's Complicated"},
+		{value: "In an Open Relationship", text: "In an Open Relationship"},
+		{value: "Widowed", text: "Widowed"},
+		{value: "Engaged", text: "Engaged"},
+		{value: "Separated", text: "Separated"},
+		{value: "Divorced", text: "Divorced"},
+	],
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Relationship Status'
+   });
+   $('#bio').editable({
+    type: 'textarea',
+    pk: 1,
+	validate: function(value) {
+		if($.trim(value) == '') {
+			return 'this field is required';
+		}
+    },
+    url: 'http://lurnn.com/me/update.html',
+    title: 'Enter Your Details'
+   });
+   
+</script>
+
+<script> 
+
+// post-submit callback 
+function showResponse(responseText, statusText, xhr, $form)  { 
+    //alert(responseText);
+    $("#thumbnail_profile_picture").src=responseText;
+} 
+	 
+      // prepare the form when the DOM is ready 
+$(document).ready(function() { 
+    var options = { 
+        //target:        '#output2',   // target element(s) to be updated with server response 
+        //beforeSubmit:  validate,  // pre-submit callback 
+        success:      showResponse,  // post-submit callback 
+ 
+        // other available options: 
+        url:       "http://lurnn.com/me/upload.html",         // override for form's 'action' attribute 
+        type:      "post"        // 'get' or 'post', override for form's 'method' attribute 
+        //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+        //clearForm: true        // clear all form fields after successful submit 
+        //resetForm: true        // reset the form after successful submit 
+ 
+        // $.ajax options can be used here too, for example: 
+        //timeout:   3000 
+    }; 
+ 
+    // bind to the form's submit event 
+    $('#profile_picture').change(function() { 
+        // inside event callbacks 'this' is the DOM element so we first 
+        // wrap it in a jQuery object and then invoke ajaxSubmit 
+        $("#change_profile_picture").ajaxSubmit(options); 
+ 
+        // !!! Important !!! 
+        // always return false to prevent standard browser submit and page navigation 
+        return false; 
+    }); 
+}); 
+ 
+
+	 
+    
+    </script>
+</body>
+</html>
